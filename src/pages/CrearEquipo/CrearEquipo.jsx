@@ -11,8 +11,6 @@ import { startNewDevice } from "./../../actions/equipos/equipos";
 import { choiceDeviceName } from "../../actions/create/createDevice";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { db } from "../../firebase/firebase-config";
-import { getDocs, query, collection, doc, getDoc} from "firebase/firestore";
 
 export const CrearEquipo = () => {
   const dispatch = useDispatch();
@@ -37,15 +35,11 @@ export const CrearEquipo = () => {
   };
 
   const handleAddNew = () => {
-    dispatch(startNewDevice());
+
+    
   };
 
-  const getPersons = async () =>{
-    const persons = await getDoc(query(collection(db,`${uid}/equipos`)));
-    console.log(persons.docs);
-  };
 
-  getPersons()
 
 
   return (

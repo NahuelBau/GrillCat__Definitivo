@@ -1,38 +1,23 @@
 import {types} from './../../types/types';
 
-import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth'
-import { firebaseApp } from './../../firebase/firebase-config';
 
-const auth = getAuth(firebaseApp)
 
 export const startLoginEmailPassword = (email, password) => {
   return (dispatch) => {
     dispatch(uiStartLoading());
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({user}) => {
-        dispatch(loginAction( user.uid, user.displayName ));
-        console.log('exito en el login')
-        dispatch(uiFinishLoading());
-      })
-      .catch((error) => {
-        console.log(error.code);
-        console.log(error.message)
-        dispatch(uiFinishLoading());
-      })
+    
   };
 };
 
 export const startLogout = () => {
-  return async (dispatch) => {
-    await signOut(auth);
-    dispatch(logOut());
+  return (dispatch) => {
   };
 };
 
 
 
 
-export const loginAction = (uid, displayName) => {
+const login = (uid, displayName) => {
   return {
     type: types.login,
     payload: {

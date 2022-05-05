@@ -12,22 +12,25 @@ import { Navbar } from './../Components/ui/Navbar';
 export const AppRouter = () => {
   const dispatch = useDispatch();
 
-  const [checking, setChecking] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checking, setChecking] = useState(false);
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user?.uid) {
-        dispatch(loginAction(user.uid, user.displayName));
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user?.uid) {
+  //       // dispatch(loginAction(user.uid, user.displayName));
+  //       setIsLoggedIn(true);
+  //     } else {
+  //       setIsLoggedIn(false);
+  //     }
 
-      setChecking(false);
-    });
-  }, [setChecking, setIsLoggedIn]);
+  //     setChecking(false);
+  //   });
+  // }, [setChecking, setIsLoggedIn]);
+
+
 
   if (checking) {
     return <div>Cargando</div>;
