@@ -1,50 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import { choiceSiteName, choiceWZName } from "../../actions/create/createDevice";
+import { choiceDeviceType } from './../../actions/create/createDevice';
 
 export const DataListWZ = () => {
   // const {equipos,WZAvalible} = useSelector( state => state.equipos)
-  // const [workZoneName, setWorkZoneName] = useState(null);
-  // const dispatch = useDispatch();
 
+  const [workZoneName, setWorkZoneName] = useState(null);
+  const dispatch = useDispatch();
 
-  // const selected = (e) => {
-  //   if (e.target.value === '') {
-  //     console.log('esperando una seleccion...')
-  //   }else{
-  //     setWorkZoneName(e.target.value);
-  //     console.log('Su seleccion es:', e.target.value);
-  //   }
-  // }
+  const selected = (e) => {
+    if (e.target.value === '') {
+      console.log('esperando una seleccion...')
+    }else{
+      setWorkZoneName(e.target.value);
+      console.log('Su seleccion es:', e.target.value);
+    }
+  }
 
-  // const saveButton = () => {
+  const saveButton = () => {
 
-  //   dispatch(arraySites(equipos,workZoneName));
-  //   dispatch(choiceWZName(workZoneName));
+    // dispatch(arraySites(equipos,workZoneName));
+    dispatch(choiceWZName(workZoneName));
 
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Zona de trabajo seleccionada',
-  //     timer: 2400 ,
-  //     position: 'top',
-  //     toast: true,
-  //     showConfirmButton: false,
-  //     timerProgressBar: true,
-  //   })
+    Swal.fire({
+      icon: 'success',
+      title: 'Zona de trabajo seleccionada',
+      timer: 2400 ,
+      position: 'top',
+      toast: true,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    })
 
-  // }
+  }
   return (
     <div className="d-flex">
       <input
         className="form-control "
         list="list_1"
         placeholder="Ingrese grupo de lugares..."
-        // onSelect={selected}
+        onSelect={selected}
       />
       <datalist id="list_1">
         {/* {WZAvalible.map((opt) => (
           // <option key={opt} value={opt} />
         ))} */}
       </datalist>
-      <button className="btn btn-success btn-lg" >
+      <button className="btn btn-success btn-lg" onClick={saveButton}>
         <i className="bi bi-check-lg"></i>
       </button>
     </div>
@@ -54,37 +58,37 @@ export const DataListWZ = () => {
 
 export const DataListS = ({options}) => {
 
-  // const dispatch = useDispatch();
-  // const [siteName, setSiteName] = useState(null);
+  const dispatch = useDispatch();
+  const [siteName, setSiteName] = useState(null);
   // const {equipos,SiteAvalible} = useSelector( state => state.equipos)
 
 
 
-  // const selected = (e) => {
-  //   if (e.target.value === '') {
-  //     console.log('esperando una seleccion...')
-  //   }else{
-  //     setSiteName(e.target.value);
-  //     console.log('Su seleccion es:', e.target.value);
-  //   }
-  // }
+  const selected = (e) => {
+    if (e.target.value === '') {
+      console.log('esperando una seleccion...')
+    }else{
+      setSiteName(e.target.value);
+      console.log('Su seleccion es:', e.target.value);
+    }
+  }
 
-  // const saveButton = () => {
-  //   dispatch(choiceSiteName(siteName));
-  //   dispatch(arrayDeviceTypes(equipos, siteName))
+  const saveButton = () => {
+    dispatch(choiceSiteName(siteName));
+    // dispatch(arrayDeviceTypes(equipos, siteName))
 
-  //   // Alerta
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Ubicacion seleccionada',
-  //     timer: 2400 ,
-  //     position: 'top',
-  //     toast: true,
-  //     showConfirmButton: false,
-  //     timerProgressBar: true,
-  //   })
+    // Alerta
+    Swal.fire({
+      icon: 'success',
+      title: 'Ubicacion seleccionada',
+      timer: 2400 ,
+      position: 'top',
+      toast: true,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    })
     
-  // }
+  }
   
   return(
     <div className='d-flex'>
@@ -92,7 +96,7 @@ export const DataListS = ({options}) => {
       className="form-control" 
       list="list_2" 
       placeholder="Ingrese un lugar..." 
-      // onSelect={selected}
+      onSelect={selected}
       />
     <datalist id="list_2">
       {/* {
@@ -101,7 +105,7 @@ export const DataListS = ({options}) => {
     </datalist>
     <button 
         className="btn btn-success btn-lg"
-        // onClick={saveButton}
+        onClick={saveButton}
       ><i className="bi bi-check-lg"></i></button>
     </div>
 
@@ -110,38 +114,38 @@ export const DataListS = ({options}) => {
 }
 
 export const DataListDT = ({options}) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const [deviceType1, setDeviceType] = useState(null);
+  const [deviceType1, setDeviceType] = useState(null);
   // const {DeviceTypeAvalible} = useSelector( state => state.equipos)
 
   
 
 
-  // const selected = (e) => {
-  //   if (e.target.value === '') {
-  //     console.log('esperando una seleccion...')
-  //   }else{
-  //     setDeviceType(e.target.value);
-  //     console.log('Su seleccion es:', e.target.value);
-  //   }
-  // }
+  const selected = (e) => {
+    if (e.target.value === '') {
+      console.log('esperando una seleccion...')
+    }else{
+      setDeviceType(e.target.value);
+      console.log('Su seleccion es:', e.target.value);
+    }
+  }
 
-  // const saveButton = () => {
-  //   dispatch(choiceDeviceType(deviceType1));
+  const saveButton = () => {
+    dispatch(choiceDeviceType(deviceType1));
 
-  //   // Alerta
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Tipo de equipo seleccionado',
-  //     timer: 2400 ,
-  //     position: 'top',
-  //     toast: true,
-  //     showConfirmButton: false,
-  //     timerProgressBar: true,
-  //   })
+    // Alerta
+    Swal.fire({
+      icon: 'success',
+      title: 'Tipo de equipo seleccionado',
+      timer: 2400 ,
+      position: 'top',
+      toast: true,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    })
     
-  // }
+  }
 
   return(
     <div className="d-flex">
@@ -150,7 +154,7 @@ export const DataListDT = ({options}) => {
       className="form-control" 
       list="list_3" 
       placeholder="Ingrese un tipo de equipo..." 
-      // onSelect={selected}
+      onSelect={selected}
     />
     <datalist id="list_3">
       {/* {
@@ -159,7 +163,7 @@ export const DataListDT = ({options}) => {
     </datalist>
     <button 
         className="btn btn-success btn-lg"
-        // onClick={saveButton}
+        onClick={saveButton}
       ><i className="bi bi-check-lg"></i></button>
     
   </div>
