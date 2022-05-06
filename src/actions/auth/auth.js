@@ -1,46 +1,75 @@
 import {types} from './../../types/types';
+import { fetchConToken, fetchSinToken } from './../../helpers/fetch';
+import  Swal  from 'sweetalert2';
 
 
 
-export const startLoginEmailPassword = (email, password) => {
-  return (dispatch) => {
-    dispatch(uiStartLoading());
+export const startLogin = (username, password) => {
+  return async(dispatch) => {
     
-  };
-};
+    const resp = await fetchSinToken( 'auth' , {username, password}, 'POST' );
+    const body = await resp.json();
 
-export const startLogout = () => {
-  return (dispatch) => {
-  };
-};
+    if (body.ok) {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
 
-
-
-
-const login = (uid, displayName) => {
-  return {
-    type: types.login,
-    payload: {
-      uid,
-      name: displayName
+      dispatch(login({uid: body.uid, name: body.name}));
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: body.msg,
+        toast: true,
+        timerProgressBar: true,
+      })
     }
-  }
-};
-
-const logOut = () => {
-  return{
-    type: types.logout
   }
 }
 
-const uiStartLoading = () => {
-  return{
-    type: types.uiStartLoading,
-  }
-};
+const login = (user) => ({
+  type: types.authLogin,
+  payload: user
+});
 
-const uiFinishLoading = () => {
-  return{
-    type: types.uiFinishLoading,
+
+
+
+export const startChecking = () => {
+  return async (dispatch) => {
+    
+    const resp = await fetchConToken( 'auth/renew' );
+    const body = await resp.json();
+
+    if (body.ok) {
+      localStorage.setItem('token', body.token);
+      localStorage.setItem('token-init-date', new Date().getTime());
+
+      dispatch(login({
+        uid: body.uid, 
+        name: body.name
+      }));
+
+    }else{
+      dispatch(checkingFinish());
+    }
   }
-};
+}
+
+const checkingFinish = () => ({
+  type: types.authCheckinFinish
+})
+
+
+export const startLogout = () => {  
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('token-init-date');
+
+    dispatch(logout());
+  }
+}
+
+const logout = () => ({ type: types.authLogout });
+
+
+

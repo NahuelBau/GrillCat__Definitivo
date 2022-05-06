@@ -1,13 +1,12 @@
 export const types = {
-  
-  login: '[auth] login',
-  logout: '[auth] logout',
 
-  uiSetError: '[UI] set error',
-  uiRemoveError: '[UI] remove error',
-
-  uiStartLoading: '[UI] start loading',
-  uiFinishLoading: '[UI] finish loading',
+  //? Parte de Login                     
+  authCheckinFinish: '[AUTH] Checkin login state finish',
+  authstartLogin: '[AUTH] Start login',
+  authLogin: '[AUTH] Login',
+  authStartRegister: '[AUTH] Auth',
+  authStartTokenRenwe: '[AUTH] Start Token renew',
+  authLogout: '[AUTH] Logout',
 
   //? Acciones del equipo
   CREATION_SW: '[CREATE] Seleccion de SW',

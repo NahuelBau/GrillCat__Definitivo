@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import { startLogin } from "./../../actions/auth/auth";
 
 import { useForm } from "./../../hooks/useForm";
-import { startLoginEmailPassword } from "./../../actions/auth/auth";
 
 import "./styles.css";
 
@@ -12,10 +12,12 @@ export const Login = () => {
   const [{email, password}, handleInputChange] = useForm();
 
   const handleLogin = () => {
-    dispatch(startLoginEmailPassword(email, password));
+    dispatch(startLogin(email, password));
   };
+  
 
   return (
+    
     <div className="login__screen content">
       <div className="login__container">
         <h1>Ingreso</h1>
