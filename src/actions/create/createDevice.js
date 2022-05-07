@@ -4,6 +4,8 @@
 // import { startGetWZNames } from "./availableDevices";
 // import { startGetAllDevice } from "./equipos__V2";
 
+import Swal from "sweetalert2";
+import { fetchConToken } from "../../helpers/fetch";
 import { types } from "../../types/types";
 
 
@@ -26,3 +28,44 @@ export const choiceDeviceName = (event) => ({
   type: types.CREATION_DN,
   payload: event
 });
+
+//_________ Creacion ___________
+export const eventStartCreateDevice = (event) => {
+  return async( dispatch ) => {
+    try {
+      const resp = await fetchConToken('devices/create', event, 'POST');
+      const body = await resp.json();
+      console.log(event)
+
+      
+      if (body.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Equipo creado! :D',
+          timer: 2400 ,
+          position: 'center',
+          toast: true,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        return(true)
+
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: body.msg+'.',
+          // timer: 2400 ,
+          position: 'center',
+          toast: true,
+          showConfirmButton: true,
+          timerProgressBar: true,
+        });
+      }
+
+      
+    } catch(error) {
+      console.log(error);
+    }
+    
+  }
+};

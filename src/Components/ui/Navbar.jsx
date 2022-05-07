@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { startLogout } from "../../actions/auth/auth";
 import "./Styles.css";
 
 export const Navbar = () => {
@@ -10,8 +11,11 @@ export const Navbar = () => {
 
   const handleOpen = () =>{
     setIsOpen(!isOpen);
-  }
+  };
 
+  const handleLogout = () => {
+    dispatch(startLogout());
+  };
 
 
   return (
@@ -35,7 +39,7 @@ export const Navbar = () => {
           <NavLink className= 'menu-item' to='/mas-info'><i className="bi bi-info-circle-fill"></i> Informacion del Producto</NavLink>
 
           <div className="position-absolute bottom-0 p-2 d-flex profile ">
-            <button className="btn btn-danger" ><i className="bi bi-box-arrow-left"></i> Salir</button>
+            <button className="btn btn-danger" onClick={handleLogout}><i className="bi bi-box-arrow-left"></i> Salir</button>
             <span>User-Test</span>
           </div>
         </nav>

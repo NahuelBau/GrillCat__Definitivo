@@ -1,41 +1,25 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Login } from "../pages/Login/Login";
-import { Home } from "./../pages/Home/Home";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../actions/auth/auth";
+import { startChecking } from "../actions/auth/auth";
 import { PrincipalRouter } from "./PrincipalRouter";
-import { Navbar } from './../Components/ui/Navbar';
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
 
-  const [checking, setChecking] = useState(false);
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {checking, uid} = useSelector( state => state.auth );
 
-
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user?.uid) {
-  //       // dispatch(loginAction(user.uid, user.displayName));
-  //       setIsLoggedIn(true);
-  //     } else {
-  //       setIsLoggedIn(false);
-  //     }
-
-  //     setChecking(false);
-  //   });
-  // }, [setChecking, setIsLoggedIn]);
-
+  useEffect(() => {
+    dispatch(startChecking());
+  }, [dispatch, uid]);
 
 
   if (checking) {
     return <div>Cargando</div>;
-  }
+  };
+
 
   return (
     <div className="app">
@@ -44,7 +28,7 @@ export const AppRouter = () => {
           <Route
             path="/login"
             element={
-              <PublicRoute isAuth={isLoggedIn}>
+              <PublicRoute isAuth={uid}>
                 <Login />
               </PublicRoute>
             }
@@ -53,7 +37,7 @@ export const AppRouter = () => {
           <Route
             path="/*"
             element={
-              <PrivateRoute isAuth={isLoggedIn}>
+              <PrivateRoute isAuth={uid}>
                 <PrincipalRouter />
               </PrivateRoute>
             }

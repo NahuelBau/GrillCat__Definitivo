@@ -8,17 +8,32 @@ import {
 } from "./../../Components/CustomComponents/DataList";
 import { useDispatch, useSelector } from "react-redux";
 import { startNewDevice } from "./../../actions/equipos/equipos";
-import { choiceDeviceName } from "../../actions/create/createDevice";
+import {
+  choiceDeviceName,
+  eventStartCreateDevice,
+} from "../../actions/create/createDevice";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
 export const CrearEquipo = () => {
   const dispatch = useDispatch();
 
-  
   const [deviceNameCreate, setDeviceName] = useState(null);
 
-  const {uid}=useSelector(state=>state.auth);
+  const { uid } = useSelector((state) => state.auth);
+  const {
+    WZN_toCreate: workZoneName,
+    SN_toCreate: siteName,
+    DTN_toCreate: deviceTypeName,
+    DN_toCreate: deviceName,
+  } = useSelector((state) => state.create);
+  const toSend = {
+    workZoneName,
+    siteName,
+    deviceTypeName,
+    deviceName,
+    uid,
+  };
 
   const saveButton = () => {
     dispatch(choiceDeviceName(deviceNameCreate));
@@ -35,12 +50,8 @@ export const CrearEquipo = () => {
   };
 
   const handleAddNew = () => {
-
-    
+    dispatch(eventStartCreateDevice(toSend));
   };
-
-
-
 
   return (
     <div className="content">

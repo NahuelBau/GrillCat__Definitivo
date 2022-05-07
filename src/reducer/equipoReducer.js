@@ -1,53 +1,91 @@
-import {
-  types
-} from './../types/types';
-
-/*
-
-{
-  equipos: [],
-  active: null,
-  active: {
-    id: 'asdfasdfasdf',
-    WorkZone: 'Lab1',
-    Site: 'Laboratio'
-    deviceType: 'GND',
-    DeviceName: 'GND__1',
-
-    factor: 200,
-    hrsDia: 20,
-
-    hrsActuales: 2000,
-    DAYhrsActuales: una fecha(1231231232131) son numeros,
-
-    hrsUltimoService: 1000,
-    DAYhrsUltimoService: una fecha,
-
-    status: 'ok' | 'con observaciones' | 'fuera de servicio',
-    observacion: 'aca viene una observacipon que puede ser o no una mierdaque podamosad',
-
-  }
-}
-equipoReducer
-*/
+import { types } from "../types/types";
 
 const initialState = {
-  equipos: [],
-  active: null,
+  equipos: null, 
+
+  WZAvalible: [],
+  SiteAvalible: [],
+  DeviceTypeAvalible: [],
+  DeviceAvalible: [],
+
+  equiposOrdenados: [],
+
+  WZSelected: null,
+  SiteSelected: null,
+  DeviceTypeSelected: null,
+  DeviceSelected: null,
+
+  device:null,
+
 }
 
-export const equipoReducer = (state = initialState, action) => {
+
+
+
+export const equiposReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.selectDeviceAfteCreate:
-      return {
+
+    case types.getAllDevices:
+      return{
         ...state,
-        active: {
-          ...action.payload
-        }
+        equipos:[...action.payload]
+      }
+    
+    case types.filterForWZ:
+      return{
+        ...state,
+        WZAvalible:action.payload
+      }
+    
+    case types.filterForSite:
+      return{
+        ...state,
+        SiteAvalible:action.payload
       }
 
+    case types.filterForDeviceTypes:
+      return{
+        ...state,
+        DeviceTypeAvalible:action.payload
+      }
 
-      default:
-        return state
+    case types.filterForDevices:
+      return{
+        ...state,
+        DeviceAvalible:action.payload
+      }
+    
+    case types.selectWZ:
+      return{
+        ...state,
+        WZSelected:action.payload
+      }
+    
+    case types.selectSite:
+      return{
+        ...state,
+        SiteSelected:action.payload
+      }
+
+    case types.selectDeviceType:
+      return{
+        ...state,
+        DeviceTypeSelected:action.payload
+      }
+    
+    case types.selectDevice:
+      return{
+        ...state,
+        DeviceSelected:action.payload
+      }
+    
+    case types.getOneDevice:
+      return{
+        ...state,
+        device:action.payload
+      }
+  
+    default:
+      return state
   }
 }

@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Col, Label, Row } from "reactstrap";
-import { WZSelectComponent } from "./../../Components/CustomComponents/MySelect";
+import { startGetAllDevice } from "../../actions/equipos/equipos";
+import { SelectDeviceType, SelectDevive, SelectSite, WZSelectComponent } from "./../../Components/CustomComponents/MySelect";
 
 export const Equipos = () => {
+
+  const dispatch = useDispatch();
+
+  const {uid} = useSelector( state => state.auth );
+  console.log(uid);
+
+  useEffect(() => {
+    dispatch(startGetAllDevice(uid));
+  }, []);
 
 
   const navigate = useNavigate()
@@ -23,15 +34,15 @@ export const Equipos = () => {
         </Col>
         <Col sm={6} className="p-2">
           <Label>Lugar:</Label>
-          <WZSelectComponent />
+          <SelectSite />
         </Col>
         <Col sm={6} className="p-2">
           <Label>Tipo de Equipo:</Label>
-          <WZSelectComponent />
+          <SelectDeviceType />
         </Col>
         <Col sm={6} className="p-2">
           <Label>Nombre del Equipo:</Label>
-          <WZSelectComponent />
+          <SelectDevive />
         </Col>
 
         <Row>

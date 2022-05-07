@@ -9,7 +9,7 @@ export const Login = () => {
 
   const dispatch = useDispatch();
   const {loading} = useSelector((state) => state.ui);
-  const [{email, password}, handleInputChange] = useForm();
+  const [{email, password}, handleInputChange] = useForm({email: 'mnb123', password: '123456'});
 
   const handleLogin = () => {
     dispatch(startLogin(email, password));
